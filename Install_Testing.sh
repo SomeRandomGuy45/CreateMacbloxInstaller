@@ -67,7 +67,7 @@ pip3 install https://github.com/SomeRandomGuy45/pypresence/archive/master.zip
 #echo "$PASSWORD" | sudo -S mkdir /usr/local/include/discord-rpc
 #echo "$PASSWORD" | sudo -S mv ~/discord_rpc/include/discord_register.h /usr/local/include/discord-rpc
 #echo "$PASSWORD" | sudo -S mv ~/discord_rpc/include/discord_rpc.h /usr/local/include/discord-rpc
-echo "$PASSWORD" | sudo rm -rf MacBlox
+echo "$PASSWORD" | sudo -S rm -rf MacBlox
 echo "[INFO] Building MacBlox"
 git clone https://github.com/SomeRandomGuy45/MacBlox.git
 cd MacBlox
