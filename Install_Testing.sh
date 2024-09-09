@@ -12,31 +12,22 @@
 '
 
 create_loading_dialog() {
-    osascript <<EOF &
-tell application "System Events"
-    display dialog "Loading" buttons {"Cancel"} default button "Cancel" giving up after 3600 with icon note
-end tell
+  osascript <<EOF
+  tell application "System Events"
+      set myDialog to display dialog "Installing" buttons {"Stop"} default button "Stop" giving up after 86400 -- 1 day timeout
+  end tell
 EOF
 }
 
 # Function to close the loading dialog
 close_loading_dialog() {
-    osascript <<EOF
-tell application "System Events"
-    try
-        tell process "System Events"
-            set frontmost to true
-            if exists (first window whose name contains "Loading") then
-                click button "Cancel" of (first window whose name contains "Loading")
-            end if
-        end tell
-    end try
-end tell
+  osascript <<EOF
+  tell application "System Events" to keystroke return
 EOF
 }
 
 PASSWORD=$(osascript -e 'Tell application "System Events" to display dialog "Enter your password:" default answer "" with hidden answer buttons {"OK"} default button "OK"' -e 'text returned of result')
-#create_loading_dialog
+create_loading_dialog
 cd ~
 echo "[INFO] Checking if Xcode Tools is installed"
 #i forgot where i found this :((((
@@ -55,10 +46,6 @@ echo "\n[INFO] Installing brew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/SomeRandomGuy45/brew_install/main/installer.sh)"
 echo "[INFO] Install Required Libs"
 brew install wxwidgets@3.2
-brew install curlpp
-brew install cmake
-brew install curl
-brew install minizip
 brew install openssl
 pip3 install --upgrade pip
 pip3 install https://github.com/SomeRandomGuy45/pypresence/archive/master.zip
@@ -75,4 +62,4 @@ make
 echo "[INFO] Finshed building MacBlox"
 echo "$PASSWORD" | sudo -S mv build/Macblox /Applications/
 sleep 1
-#close_loading_dialog
+close_loading_dialog
