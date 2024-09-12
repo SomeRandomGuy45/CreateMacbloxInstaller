@@ -55,10 +55,6 @@ echo "\n[INFO] Installing brew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/SomeRandomGuy45/brew_install/main/installer.sh)"
 echo "[INFO] Install Required Libs"
 brew install wxwidgets@3.2
-brew install curlpp
-brew install cmake
-brew install curl
-brew install minizip
 brew install openssl
 pip3 install --upgrade pip
 pip3 install https://github.com/SomeRandomGuy45/pypresence/archive/master.zip
