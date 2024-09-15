@@ -51,7 +51,9 @@ unzip Macblox_Build.zip
 cd Macblox_Build-main
 cd "Macblox_${TYPE}"
 echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/play"
+echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/Resources/Discord"
 echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/Bootstrap.app/Contents/MacOS/bootstrap"
+echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/Bootstrap.app/Contents/Resources/helper.sh"
 echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/GameWatcher.app/Contents/MacOS/GameWatcher"
 echo "$PASSWORD" | sudo -S chmod +x "Macblox.app/Contents/MacOS/Macblox"
 echo "$PASSWORD" | sudo -S chmod +x "Open Roblox.app/Contents/MacOS/openRoblox"
