@@ -11,27 +11,19 @@
 
 '
 
+# Function to create a loading dialog using osascript
 create_loading_dialog() {
-    osascript <<EOF &
-tell application "System Events"
-    display dialog "Loading" buttons {"Cancel"} default button "Cancel" giving up after 3600 with icon note
-end tell
+  osascript <<EOF
+  tell application "System Events"
+      set myDialog to display dialog "Installing" buttons {"Stop"} default button "Stop" giving up after 86400 -- 1 day timeout
+  end tell
 EOF
 }
 
 # Function to close the loading dialog
 close_loading_dialog() {
-    osascript <<EOF
-tell application "System Events"
-    try
-        tell process "System Events"
-            set frontmost to true
-            if exists (first window whose name contains "Loading") then
-                click button "Cancel" of (first window whose name contains "Loading")
-            end if
-        end tell
-    end try
-end tell
+  osascript <<EOF
+  tell application "System Events" to keystroke return
 EOF
 }
 
