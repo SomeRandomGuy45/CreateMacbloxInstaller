@@ -11,6 +11,8 @@
 
 '
 
+latest_commit=$(curl -s "https://api.github.com/repos/SomeRandomGuy45/MacBlox/commits/main" | grep '"sha"' | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/')
+
 # Function to create a loading dialog using osascript
 create_loading_dialog() {
   osascript <<EOF
@@ -48,6 +50,7 @@ echo "\n[INFO] Installing brew"
 echo "[INFO] Install Required Libs"
 brew install wxwidgets@3.2
 brew install openssl
+brew install lua
 pip3 install --upgrade pip
 pip3 install https://github.com/SomeRandomGuy45/pypresence/archive/master.zip
 #git clone https://github.com/SomeRandomGuy45/discord_rpc.git
@@ -55,6 +58,15 @@ pip3 install https://github.com/SomeRandomGuy45/pypresence/archive/master.zip
 #echo "$PASSWORD" | sudo -S mkdir /usr/local/include/discord-rpc
 #echo "$PASSWORD" | sudo -S mv ~/discord_rpc/include/discord_register.h /usr/local/include/discord-rpc
 #echo "$PASSWORD" | sudo -S mv ~/discord_rpc/include/discord_rpc.h /usr/local/include/discord-rpc
+mkdir -p "~/Library/Application Support/Macblox_Installer_Data"
+
+cat <<EOF > ~/Library/Application\ Support/Macblox_Installer_Data/config.json
+{
+   "version" : ${latest_version},
+   "branch" : "testing"
+}
+EOF
+
 echo "$PASSWORD" | sudo -S rm -rf MacBlox
 echo "[INFO] Building MacBlox"
 git clone https://github.com/SomeRandomGuy45/MacBlox.git

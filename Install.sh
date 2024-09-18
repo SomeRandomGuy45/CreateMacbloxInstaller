@@ -11,6 +11,9 @@
 
 '
 
+# soon add a file
+# cuz we are just assuming the version to be the latest
+latest_version=$(curl -s "https://api.github.com/repos/SomeRandomGuy45/MacBlox/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 
 ARCH=$(uname -m)
 
@@ -58,6 +61,15 @@ echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/GameWatcher.app/Con
 echo "$PASSWORD" | sudo -S chmod +x "Macblox.app/Contents/MacOS/Macblox"
 echo "$PASSWORD" | sudo -S chmod +x "Open Roblox.app/Contents/MacOS/openRoblox"
 cd ..
+mkdir -p "~/Library/Application Support/Macblox_Installer_Data"
+
+cat <<EOF > ~/Library/Application\ Support/Macblox_Installer_Data/config.json
+{
+   "version" : ${latest_version},
+   "branch" : "main"
+}
+EOF
+
 echo "[INFO] Finshed building MacBlox"
 echo "$PASSWORD" | sudo -S mkdir /Applications/Macblox
 #should copy the items not the folder it self
