@@ -11,6 +11,11 @@
 
 '
 
+killall bootstrap
+killall play
+killall GameWatcher
+killall Macblox
+
 # soon add a file
 # cuz we are just assuming the version to be the latest
 latest_version=$(curl -s "https://api.github.com/repos/SomeRandomGuy45/MacBlox/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
