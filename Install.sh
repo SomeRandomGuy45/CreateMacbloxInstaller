@@ -48,7 +48,7 @@ EOF
 }
 
 PASSWORD=$(osascript -e 'Tell application "System Events" to display dialog "Enter your password:" default answer "" with hidden answer buttons {"OK"} default button "OK"' -e 'text returned of result')
-create_loading_dialog
+#create_loading_dialog
 cd ~
 echo "$PASSWORD" | sudo -S rm -rf Macblox_Build
 echo "$PASSWORD" | sudo -S rm -rf Macblox_Build.zip
@@ -82,4 +82,4 @@ echo "$PASSWORD" | sudo -S mkdir /Applications/Macblox
 #should copy the items not the folder it self
 echo "$PASSWORD" | sudo -S mv "Macblox_${TYPE}"/* /Applications/Macblox
 sleep 1
-close_loading_dialog
+#close_loading_dialog
