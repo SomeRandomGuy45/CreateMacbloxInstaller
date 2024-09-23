@@ -11,6 +11,11 @@
 
 '
 
+killall bootstrap
+killall play
+killall GameWatcher
+killall Macblox
+
 latest_commit=$(curl -s "https://api.github.com/repos/SomeRandomGuy45/MacBlox/commits/main" | grep '"sha"' | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/')
 
 # Function to create a loading dialog using osascript
