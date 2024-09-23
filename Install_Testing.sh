@@ -35,7 +35,7 @@ EOF
 }
 
 PASSWORD=$(osascript -e 'Tell application "System Events" to display dialog "Enter your password:" default answer "" with hidden answer buttons {"OK"} default button "OK"' -e 'text returned of result')
-create_loading_dialog
+#create_loading_dialog
 cd ~
 echo "[INFO] Checking if Xcode Tools is installed"
 #i forgot where i found this :((((
@@ -80,4 +80,4 @@ make
 echo "[INFO] Finshed building MacBlox"
 echo "$PASSWORD" | sudo -S mv build/Macblox /Applications/
 sleep 1
-close_loading_dialog
+#close_loading_dialog
