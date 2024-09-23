@@ -22,12 +22,13 @@ latest_version=$(curl -s "https://api.github.com/repos/SomeRandomGuy45/MacBlox/r
 
 ARCH=$(uname -m)
 
-if [ "$ARCH" == "x86_64" ]; then
+if [ "$ARCH" = "x86_64" ]; then
     TYPE="x64"
-elif [ "$ARCH" == "arm64" ]; then
+elif [ "$ARCH" = "arm64" ]; then
     TYPE="arm"
 else
     echo "Unknown architecture: $ARCH"
+    exit 1
 fi
 
 # Function to create a loading dialog using osascript
