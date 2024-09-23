@@ -51,6 +51,7 @@ PASSWORD=$(osascript -e 'Tell application "System Events" to display dialog "Ent
 create_loading_dialog
 cd ~
 echo "$PASSWORD" | sudo -S rm -rf Macblox_Build
+echo "$PASSWORD" | sudo -S rm -rf Macblox_Build.zip
 echo "[INFO] Building MacBlox"
 # Download the repository as a ZIP file
 curl -L -o Macblox_Build.zip https://github.com/SomeRandomGuy45/Macblox_Build/archive/refs/heads/main.zip
