@@ -65,7 +65,7 @@ mkdir -p "~/Library/Application Support/Macblox_Installer_Data"
 
 cat <<EOF > ~/Library/Application\ Support/Macblox_Installer_Data/config.json
 {
-   "version" : ${latest_version},
+   "version" : "${latest_version}",
    "branch" : "main"
 }
 EOF
