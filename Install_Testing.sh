@@ -16,7 +16,21 @@ killall play
 killall GameWatcher
 killall Macblox
 
-latest_commit=$(curl -s "https://api.github.com/repos/SomeRandomGuy45/MacBlox/commits/main" | grep '"sha"' | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/')
+# soon add a file
+# cuz we are just assuming the version to be the latest
+latest_version=$(curl -s "https://api.github.com/repos/SomeRandomGuy45/MacBlox/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+current_user=$(whoami)
+
+ARCH=$(uname -m)
+
+if [ "$ARCH" = "x86_64" ]; then
+    TYPE="x64"
+elif [ "$ARCH" = "arm64" ]; then
+    TYPE="arm"
+else
+    echo "Unknown architecture: $ARCH"
+    exit 1
+fi
 
 # Function to create a loading dialog using osascript
 create_loading_dialog() {
@@ -36,48 +50,37 @@ EOF
 
 PASSWORD=$(osascript -e 'Tell application "System Events" to display dialog "Enter your password:" default answer "" with hidden answer buttons {"OK"} default button "OK"' -e 'text returned of result')
 #create_loading_dialog
-cd ~
-echo "[INFO] Checking if Xcode Tools is installed"
-#i forgot where i found this :((((
-xcode-select -p &> /dev/null
-if [ $? -ne 0 ]; then
-  echo "[INFO] Command Line Tools for Xcode not found. Installing from softwareupdate…"
-  # This temporary file prompts the 'softwareupdate' utility to list the Command Line Tools
-  touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
-  PROD=$(softwareupdate -l | grep "\*.*Command Line" | tail -n 1 | sed 's/^[^C]* //')
-  softwareupdate -i "$PROD" --verbose;
-else
-  echo "[INFO] Command Line Tools for Xcode have been installed."
-fi
-echo "$PASSWORD" | sudo -S xcodebuild -license accept
-echo "\n[INFO] Installing brew"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/SomeRandomGuy45/brew_install/main/installer.sh)"
-echo "[INFO] Install Required Libs"
-brew install wxwidgets@3.2
-brew install openssl
-brew install lua
-pip3 install --upgrade pip
-pip3 install https://github.com/SomeRandomGuy45/pypresence/archive/master.zip
-#git clone https://github.com/SomeRandomGuy45/discord_rpc.git
-#echo "$PASSWORD" | sudo -S mv ~/discord_rpc/lib/libdiscord-rpc.a /usr/local/lib
-#echo "$PASSWORD" | sudo -S mkdir /usr/local/include/discord-rpc
-#echo "$PASSWORD" | sudo -S mv ~/discord_rpc/include/discord_register.h /usr/local/include/discord-rpc
-#echo "$PASSWORD" | sudo -S mv ~/discord_rpc/include/discord_rpc.h /usr/local/include/discord-rpc
-mkdir -p "~/Library/Application Support/Macblox_Installer_Data"
+cd /Users/$current_user
+echo "$PASSWORD" | sudo -S rm -rf Macblox_Build
+echo "$PASSWORD" | sudo -S rm -rf Macblox_Build.zip
+echo "[INFO] Building MacBlox"
+# Download the repository as a ZIP file
+curl -L -o Macblox_Build.zip https://github.com/SomeRandomGuy45/Macblox_Build/archive/refs/heads/main.zip
+# Unzip the downloaded ZIP file
+unzip Macblox_Build.zip
+# Move into the extracted directory (it'll be named "Macblox_Build-main")
+cd Macblox_Build-main
+cd "Macblox_${TYPE}"
+echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/play"
+echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/Resources/Discord"
+echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/Bootstrap.app/Contents/MacOS/bootstrap"
+echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/Bootstrap.app/Contents/Resources/helper.sh"
+echo "$PASSWORD" | sudo -S chmod +x "Play.app/Contents/MacOS/GameWatcher.app/Contents/MacOS/GameWatcher"
+echo "$PASSWORD" | sudo -S chmod +x "Macblox.app/Contents/MacOS/Macblox"
+echo "$PASSWORD" | sudo -S chmod +x "Open Roblox.app/Contents/MacOS/openRoblox"
+cd ..
+mkdir -p "/Users/$current_user/Library/Application Support/Macblox_Installer_Data"
 
-cat <<EOF > ~/Library/Application\ Support/Macblox_Installer_Data/config.json
+cat <<EOF > /Users/$current_user/Library/Application\ Support/Macblox_Installer_Data/config.json
 {
    "version" : "${latest_version}",
-   "branch" : "testing"
+   "branch" : "main"
 }
 EOF
 
-echo "$PASSWORD" | sudo -S rm -rf MacBlox
-echo "[INFO] Building MacBlox"
-git clone https://github.com/SomeRandomGuy45/MacBlox.git
-cd MacBlox
-make
 echo "[INFO] Finshed building MacBlox"
-echo "$PASSWORD" | sudo -S mv build/Macblox /Applications/
+echo "$PASSWORD" | sudo -S mkdir /Applications/Macblox
+#should copy the items not the folder it self
+echo "$PASSWORD" | sudo -S mv "Macblox_${TYPE}"/* /Applications/Macblox
 sleep 1
 #close_loading_dialog
