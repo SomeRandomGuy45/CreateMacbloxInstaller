@@ -59,13 +59,13 @@ curl -L -o /Users/$current_user/Macblox_Build.zip https://github.com/SomeRandomG
 unzip /Users/$current_user/Macblox_Build.zip
 # Move into the extracted directory (it'll be named "Macblox_Build-main")
 
-echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}Play.app/Contents/MacOS/play"
-echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}Play.app/Contents/Resources/Discord"
-echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}Play.app/Contents/MacOS/Bootstrap.app/Contents/MacOS/bootstrap"
-echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}Play.app/Contents/MacOS/Bootstrap.app/Contents/Resources/helper.sh"
-echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}Play.app/Contents/MacOS/GameWatcher.app/Contents/MacOS/GameWatcher"
-echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}Macblox.app/Contents/MacOS/Macblox"
-echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}Open Roblox.app/Contents/MacOS/openRoblox"
+echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}/Play.app/Contents/MacOS/play"
+echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}/Play.app/Contents/Resources/Discord"
+echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}/Play.app/Contents/MacOS/Bootstrap.app/Contents/MacOS/bootstrap"
+echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}/Play.app/Contents/MacOS/Bootstrap.app/Contents/Resources/helper.sh"
+echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}/Play.app/Contents/MacOS/GameWatcher.app/Contents/MacOS/GameWatcher"
+echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}/Macblox.app/Contents/MacOS/Macblox"
+echo "$PASSWORD" | sudo -S chmod +x "/Users/$current_user/Macblox_Build-main/Macblox_${TYPE}/Open Roblox.app/Contents/MacOS/openRoblox"
 cd ..
 mkdir -p "/Users/$current_user/Library/Application Support/Macblox_Installer_Data"
 
